@@ -1,12 +1,15 @@
 import * as express from 'express';
-import { Message } from '@finnoconsult-test-trivia/api-interfaces';
+import { Health } from '@finnoconsult-test-trivia/api-interfaces';
 
 const app = express();
 
-const greeting: Message = { message: 'Welcome to api!' };
+const started = new Date();
 
-app.get('/api', (req, res) => {
-  res.send(greeting);
+app.get('/api/health', (req, res) => {
+  res.send({
+    status: 'OK',
+    started,
+  } as Health);
 });
 
 const port = process.env.port || 3333;
