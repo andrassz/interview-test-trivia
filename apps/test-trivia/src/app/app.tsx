@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Message } from '@finnoconsult-test-trivia/api-interfaces';
 
+import logo from './logo.svg';
+
 export const App = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
 
@@ -13,12 +15,8 @@ export const App = () => {
   return (
     <>
       <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to test-trivia!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-          alt="Nx - Smart, Extensible Build Framework"
-        />
+        <img src={logo} alt="Finno" />
+        Trivia App
       </div>
       <div>{m.message}</div>
     </>
