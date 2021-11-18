@@ -67,10 +67,10 @@ The workflow:
 > - timeout handling per question, indicated with a timeout bar on the frontend.
 
 
-The UI elements are already added to `apps/microfrontend2`, but the data connection is not implemented towards to the backend.
+The UI elements are already added to `apps/test-trivia`, but the data connection is not implemented towards to the backend.
 
 #### **Your tasks are**:
-1. use the provided components from `apps/microfrontend2` to establish the workflow towards to the backend
+1. use the provided components from `apps/test-trivia` to establish the workflow towards to the backend
 2. make api calls from frontend to backend
 
 
