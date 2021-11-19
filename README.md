@@ -71,8 +71,8 @@ The workflow:
 The UI elements are already added to `apps/test-trivia`, but the data connection is not implemented towards to the backend.
 
 #### **Your tasks are**:
-3. use the provided components from `apps/test-trivia` to establish the workflow towards to the backend
-4. amend and complete api calls from frontend to your new backend
+3. use and tweak the provided components from `apps/test-trivia` to maintain the workflow towards to the backend
+4. amend and complete api calls from frontend to your new backend  (check // TODO: implement for the code)
 
 
 # How to work with this repo

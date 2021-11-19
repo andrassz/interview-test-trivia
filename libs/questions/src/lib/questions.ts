@@ -8,6 +8,8 @@ interface APIResponse {
 // TODO: this is what you need to replace with a call to the backend
 
 export function getQuestions(): APIResponse {
+  console.warn('TODO: implement getQuestions!');
+
   return {
     response_code: 0,
     results: [

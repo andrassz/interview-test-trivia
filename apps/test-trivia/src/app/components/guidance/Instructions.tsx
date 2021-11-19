@@ -45,12 +45,12 @@ export const Instructions = () => (
         </ul>
       </li>
       <li>
-        <Status id="frontend" /> use the provided components from
+        <Status id="frontend" /> use and tweak the provided components from
         `apps/test-trivia` to establish the workflow towards to the backend
       </li>
       <li>
         <Status id="apicalls" /> amend and complete api calls from frontend to
-        your new backend
+        your new backend (check // TODO: implement for the code)
       </li>
     </ul>
     More precise information on tasks and instructions to be found on the{' '}
