@@ -21,7 +21,7 @@ This is the welcome page of your `HomeWork`, which is a blanket project, generat
 
 We would like you to demonstrate your development skills and shine while creating a `Multiple choice Trivia Game` application.
 
-You can use the following trivia questions as your question seed: https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple&encode=url3986
+You can use the following trivia questions as your question seed: https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986
 
 > 💡 You can also generate new topics using the Trivia API: https://opentdb.com/api_config.php.
 Please select your type to be `Multiple Choice`
