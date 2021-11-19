@@ -20,3 +20,8 @@ export interface Question {
   correct_answer: string;
   incorrect_answers: string[];
 }
+
+export interface Answer {
+  answer: string;
+  correct: boolean;
+}

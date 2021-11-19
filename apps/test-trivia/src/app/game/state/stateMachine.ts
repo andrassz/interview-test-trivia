@@ -1,14 +1,15 @@
 import { assign, createMachine } from 'xstate';
-import { Question } from '@finnoconsult-test-trivia/api-interfaces';
+import { Question, Answer } from '@finnoconsult-test-trivia/api-interfaces';
 
-type MachineEvent =
+export type MachineEvent =
   | { type: 'LOGIN' }
   | { type: 'RETRY' }
   | { type: 'ANSWER' }
   | { type: 'RESTART' };
 
-interface MachineContext {
+export interface MachineContext {
   questions: Question[];
+  answers: Answer[];
 }
 
 const loadQuestions = async () => null;
@@ -30,7 +31,7 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
         invoke: {
           src: loadQuestions,
           onDone: {
-            target: 'ready',
+            target: 'question',
             actions: 'storeQuestions',
           },
           onError: {
@@ -78,7 +79,12 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
     },
     guards: {
       hasMoreQuestion: (e, b) => {
-        console.log('hasMoreQuestion', e, b);
+        console.log(
+          'hasMoreQuestion',
+          e,
+          b,
+          'TODO: eval if state.questions.length = state.answers.length'
+        );
         return true;
       },
     },

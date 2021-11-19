@@ -1,7 +1,9 @@
+import React from 'react';
 import Styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { useSend, useStatus } from './state/stateMachineContext';
 
 /* eslint-disable-next-line */
 export interface UserFormProps {
@@ -15,12 +17,27 @@ const StyledUserForm = Styled.div`
 `;
 
 export function UserForm(props: UserFormProps) {
+  const [username, setUsername] = React.useState('');
+  const send = useSend();
+  const status = useStatus();
+
+  const enterGame = () => send('LOGIN');
+
   return (
     <StyledUserForm>
+      {status.value}
       <Stack spacing={2}>
         <h1>Enter your name</h1>
-        <TextField id="username" label="Username" variant="outlined" />
-        <Button variant="contained">Enter game</Button>
+        <TextField
+          id="username"
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Button variant="contained" onClick={enterGame}>
+          Enter game
+        </Button>
       </Stack>
     </StyledUserForm>
   );
