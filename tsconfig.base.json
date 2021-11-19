@@ -14,10 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@finnoconsult-test-trivia/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
-      ]
+      ],
+      "@finnoconsult-test-trivia/questions": ["libs/questions/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

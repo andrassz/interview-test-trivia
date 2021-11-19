@@ -66,6 +66,28 @@
         }
       }
     },
+    "questions": {
+      "root": "libs/questions",
+      "sourceRoot": "libs/questions/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/questions/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/questions"],
+          "options": {
+            "jestConfig": "libs/questions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "test-trivia": {
       "root": "apps/test-trivia",
       "sourceRoot": "apps/test-trivia/src",
