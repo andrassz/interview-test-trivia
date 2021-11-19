@@ -43,11 +43,7 @@ The workflow and structure indicated in `red` is your task to implement:
 #### **Your tasks are:**
 1. construct a local database to store trivia data (can be either noSQL, SQL or in-memory, upon your preference)
     - with 1 table to store users and results together
-2. on first starting your backend
-    - all the tables you need (questions, user, results, etc) shall be created
-    - the `Trivia question list` data shall be fetched from the external Trivia DB,
-    - and store int your database, as a "data seed"
-3. establish the endpoints which would serve for the frontend.
+2. establish the endpoints which would serve for the frontend.
     - and endpoint to store (=login) the user, and return the userid (better in a masked or even in JWT format)
     - and endpoint to get the quiz questions, which shall fetch the questions from a remote 3rd party api
     - and endpoint to update the user's quizResults
@@ -75,8 +71,8 @@ The workflow:
 The UI elements are already added to `apps/test-trivia`, but the data connection is not implemented towards to the backend.
 
 #### **Your tasks are**:
-1. use the provided components from `apps/test-trivia` to establish the workflow towards to the backend
-2. amend and complete api calls from frontend to your new backend
+3. use the provided components from `apps/test-trivia` to establish the workflow towards to the backend
+4. amend and complete api calls from frontend to your new backend
 
 
 # How to work with this repo
