@@ -1,16 +1,15 @@
 import styled from '@emotion/styled';
+import UserForm from './UserForm';
 
 /* eslint-disable-next-line */
 export interface GameProps {}
 
-const StyledGame = styled.div`
-  color: pink;
-`;
+const StyledGame = styled.div``;
 
 export function Game(props: GameProps) {
   return (
     <StyledGame>
-      <h1>Welcome to Game!</h1>
+      <UserForm />
     </StyledGame>
   );
 }

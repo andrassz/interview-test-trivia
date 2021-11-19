@@ -5,7 +5,7 @@ import { HealthCheck } from './components/guidance/HealthCheck';
 import { Header } from './components/layout/Header';
 import { NavBar } from './components/layout/NavBar';
 import { Instructions } from './components/guidance/Instructions';
-import Game from './components/game/game';
+import Game from './game/Game';
 
 export const App = () => {
   const [tabIndex, setTab] = React.useState(0);

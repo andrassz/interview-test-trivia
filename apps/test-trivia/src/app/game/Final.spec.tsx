@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Game from './game';
+import Final from './Final';
 
-describe('Game', () => {
+describe('Final', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Game />);
+    const { baseElement } = render(<Final />);
     expect(baseElement).toBeTruthy();
   });
 });

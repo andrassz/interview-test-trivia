@@ -14,12 +14,7 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "NWQwMWE0MWUtNmQxNi00MjlmLTgyNzAtZmJjOWY5NTMzYmI3fHJlYWQtd3JpdGU="
       }
     }
@@ -39,14 +34,15 @@
     "api-interfaces": {
       "tags": []
     },
+    "questions": {
+      "tags": []
+    },
     "test-trivia": {
       "tags": []
     },
     "test-trivia-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "test-trivia"
-      ]
+      "implicitDependencies": ["test-trivia"]
     }
   }
 }
