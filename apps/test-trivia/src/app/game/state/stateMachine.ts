@@ -25,8 +25,16 @@ export interface MachineContext {
   user?: UserData;
 }
 
+const sendUserToBackend = async () => {
+  console.warn('TODO: implement sendUserToBackend!');
+};
+
 const loadQuestions = async () => {
   return await getQuestions();
+};
+
+const sendResultToBackend = async () => {
+  console.warn('TODO: implement sendResultToBackend!');
 };
 
 export const gameState = createMachine<MachineContext, MachineEvent>(
@@ -38,7 +46,7 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
         on: {
           LOGIN: {
             target: 'loading',
-            actions: 'setUser',
+            actions: ['setUser', 'sendUserToBackend'],
           },
         },
       },
@@ -80,7 +88,7 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
       },
       final: {
         // due that cond hasMoreQuestion is executed first, we need to store last answer here
-        onEntry: 'setAnswer',
+        onEntry: ['setAnswer', 'sendResultToBackend'],
         on: {
           RETRY: {
             actions: 'cleanUp',
@@ -121,6 +129,8 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
           return { questions: undefined, answers: undefined };
         }
       ),
+      sendUserToBackend,
+      sendResultToBackend,
     },
     guards: {
       hasMoreQuestion: (context: MachineContext, event: any) => {
