@@ -27,7 +27,8 @@ You can use the following trivia questions as your question seed: https://opentd
 Please select your type to be `Multiple Choice`
 ## Fork the repo
  Please fork this repo to your private GitHub user, so that you can commit to your own repo directly.
- Please make the forked repo public. Anyway you'll benefit from having a new pet-project under your own github profile.
+ You can make your forked repo public. Anyway you'll benefit from having a new pet-project under your own github profile.
+ We expect you to send a `pull request`, merging back your forked repository to our original repository after completing your tasks defined below.
 ## Do the chore
 ### Backend tasks
 
@@ -38,19 +39,21 @@ The workflow and structure indicated in `red` is your task to implement:
 ![](trivia.backend.png)
 
 #### **Your tasks are:**
-1. constructa a local database to store trivia data (can be either noSQL, SQL or in-memory, upon your preference)
-    - users
-    - questions
-    - answers
+1. construct a local database to store trivia data (can be either noSQL, SQL or in-memory, upon your preference)
+    - with 1 table to store users and results together
 2. on first starting your backend
     - all the tables you need (questions, user, results, etc) shall be created
     - the `Trivia question list` data shall be fetched from the external Trivia DB,
     - and store int your database, as a "data seed"
 3. establish the endpoints which would serve for the frontend.
+    - and endpoint to store (=login) the user, and return the userid (better in a masked or even in JWT format)
+    - and endpoint to get the quiz questions, which shall fetch the questions from a remote 3rd party api
+    - and endpoint to update the user's quizResults
 
 This task be completed in 3-5 hours
 
 > Optional features if you still have more time:
+> - handle incoming parameters (similar to https://opentdb.com/api_config.php API, ie. number of question, difficulty)
 > - timeout handling on receiving the answer for the question
 
 ### Frontend Components and Workflow
@@ -71,7 +74,7 @@ The UI elements are already added to `apps/test-trivia`, but the data connection
 
 #### **Your tasks are**:
 1. use the provided components from `apps/test-trivia` to establish the workflow towards to the backend
-2. make api calls from frontend to backend
+2. amend and complete api calls from frontend to your new backend
 
 
 # How to work with this repo
