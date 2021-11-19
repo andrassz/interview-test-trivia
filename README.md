@@ -31,6 +31,11 @@ Please select your type to be `Multiple Choice`
  You can make your forked repo public. Anyway you'll benefit from having a new pet-project under your own github profile.
 
  We expect you to send a `pull request`, merging back your forked repository to our original repository after completing your tasks defined below.
+
+## Install
+
+After forking / cloning your repo, you need to install node packages, either with `yarn` or `npm install`.
+
 ## Do the chore
 ### Backend tasks
 
