@@ -3,11 +3,7 @@ import Styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { useSend, useStatus } from './state/stateMachineContext';
-
-/* eslint-disable-next-line */
-export interface UserFormProps {
-}
+import { useSend } from './state/stateMachineContext';
 
 const StyledUserForm = Styled.div`
   max-width: 60%;
@@ -16,16 +12,14 @@ const StyledUserForm = Styled.div`
   border: solid 1px lightgray;
 `;
 
-export function UserForm(props: UserFormProps) {
+export function UserForm() {
   const [username, setUsername] = React.useState('');
   const send = useSend();
-  const status = useStatus();
 
   const enterGame = () => send('LOGIN');
 
   return (
     <StyledUserForm>
-      {status.value}
       <Stack spacing={2}>
         <h1>Enter your name</h1>
         <TextField

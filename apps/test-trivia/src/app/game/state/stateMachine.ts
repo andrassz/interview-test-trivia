@@ -1,5 +1,6 @@
 import { assign, createMachine } from 'xstate';
 import { Question, Answer } from '@finnoconsult-test-trivia/api-interfaces';
+// import { getQuestions } from '@finnoconsult-test-trivia/questions';
 
 export type MachineEvent =
   | { type: 'LOGIN' }
@@ -73,6 +74,12 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
     actions: {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       handleError: (error: any) => console.error(error),
+      storeQuestions: assign(
+        (_context: MachineContext, { type: _type, ...event }: any) => {
+          console.log('storeQuestions', _type, event);
+          return event;
+        }
+      ),
       assignData: assign(
         (_context: MachineContext, { type: _type, ...event }: any) => event
       ),
