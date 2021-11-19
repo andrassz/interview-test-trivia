@@ -27,7 +27,9 @@ You can use the following trivia questions as your question seed: https://opentd
 Please select your type to be `Multiple Choice`
 ## Fork the repo
  Please fork this repo to your private GitHub user, so that you can commit to your own repo directly.
+
  You can make your forked repo public. Anyway you'll benefit from having a new pet-project under your own github profile.
+
  We expect you to send a `pull request`, merging back your forked repository to our original repository after completing your tasks defined below.
 ## Do the chore
 ### Backend tasks
