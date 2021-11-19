@@ -39,16 +39,18 @@ export function QuestionAndAnswers(props: QuestionProps) {
   const send = useSend();
   const question = useCurrentQuestion();
 
+  if (!question) return <div>loading...</div>;
+
   return (
     <QuestionStyles>
-      <h1>{question?.question}</h1>
+      <h1>{question.question}</h1>
 
       <AnswerStyles>
-        {question?.random_answers.map((answer) => (
+        {question.random_answers.map((answer) => (
           <Button
             key={answer}
             variant="contained"
-            onClick={() => send('ANSWER', { answer })}
+            onClick={() => send('ANSWER', { ...question, answer })}
           >
             {answer}
           </Button>

@@ -3,14 +3,21 @@ import {
   Question,
   Answer,
   UserData,
+  createAnswer,
 } from '@finnoconsult-test-trivia/api-interfaces';
 import { getQuestions } from '@finnoconsult-test-trivia/questions';
 
-export type MachineEvent =
-  | { type: 'LOGIN' }
-  | { type: 'RETRY' }
-  | { type: 'ANSWER' }
-  | { type: 'RESTART' };
+interface AnswerEventData extends Question {
+  answer: string;
+}
+
+type AnswerEvent = { type: 'ANSWER' } & AnswerEventData;
+
+export type MachineEvent = { type: 'LOGIN' } | { type: 'RETRY' } | AnswerEvent;
+
+function isAnswerEvent(event: MachineEvent): event is AnswerEvent {
+  return event.type === 'ANSWER';
+}
 
 export interface MachineContext {
   questions?: Question[];
@@ -19,8 +26,7 @@ export interface MachineContext {
 }
 
 const loadQuestions = async () => {
-  console.log('getQuestions', getQuestions);
-  return getQuestions();
+  return await getQuestions();
 };
 
 export const gameState = createMachine<MachineContext, MachineEvent>(
@@ -38,6 +44,7 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
       },
 
       loading: {
+        // onEntry: 'cleanUp',
         invoke: {
           src: loadQuestions,
           onDone: {
@@ -61,8 +68,9 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
         on: {
           ANSWER: [
             {
-              actions: 'new',
+              target: 'question',
               cond: { type: 'hasMoreQuestion' },
+              actions: 'setAnswer',
             },
             {
               target: 'final',
@@ -71,9 +79,12 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
         },
       },
       final: {
+        // due that cond hasMoreQuestion is executed first, we need to store last answer here
+        onEntry: 'setAnswer',
         on: {
           RETRY: {
-            actions: 'loading',
+            actions: 'cleanUp',
+            target: 'loading',
           },
         },
       },
@@ -95,20 +106,30 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
           return { user };
         }
       ),
-      assignData: assign(
-        (_context: MachineContext, { type: _type, ...event }: any) => {
-          return event;
+      setAnswer: assign(
+        (context: MachineContext, { type: _type, ...eventData }: any) => {
+          // console.log('setAnswer', _type, eventData, context);
+          const answer = createAnswer(eventData, eventData.answer);
+          return {
+            answers: context.answers ? [...context.answers, answer] : [answer],
+          };
+        }
+      ),
+      cleanUp: assign(
+        (context: MachineContext, { type: _type, ...eventData }: any) => {
+          // console.warn('cleanUp!!!');
+          return { questions: undefined, answers: undefined };
         }
       ),
     },
     guards: {
-      hasMoreQuestion: (e, b) => {
-        console.log(
-          'hasMoreQuestion',
-          e,
-          b,
-          'TODO: eval if state.questions.length = state.answers.length'
-        );
+      hasMoreQuestion: (context: MachineContext, event: any) => {
+        if (isAnswerEvent(event)) {
+          return (
+            (context.answers?.length || 0) + (event.answer ? 1 : 0) <
+            (context?.questions?.length || 0)
+          );
+        }
         return true;
       },
     },

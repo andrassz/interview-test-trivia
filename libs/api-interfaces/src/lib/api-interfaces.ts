@@ -14,7 +14,7 @@ export interface UserRecord extends UserData {
 }
 export interface Question {
   category: string;
-  type: string;
+  answer_type: string;
   difficulty: string;
   question: string;
   correct_answer: string;
@@ -24,4 +24,12 @@ export interface Question {
 export interface Answer {
   answer: string;
   correct: boolean;
+}
+
+export function createAnswer(question: Question, answer: string): Answer {
+  const correct = question.correct_answer === answer;
+  return {
+    answer,
+    correct,
+  };
 }

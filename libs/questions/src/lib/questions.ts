@@ -11,19 +11,19 @@ export function getQuestions(): APIResponse {
     results: [
       {
         category: 'General Knowledge',
-        type: 'multiple',
+        answer_type: 'multiple',
         difficulty: 'easy',
-        question: 'Red Vines is a brand of what type of candy?',
-        correct_answer: 'Licorice',
-        incorrect_answers: ['Lollipop', 'Chocolate', 'Bubblegum'],
+        question: 'Which one is a capital letter?',
+        correct_answer: 'A',
+        incorrect_answers: ['b', '#', '2'],
       },
       {
         category: 'General Knowledge',
-        type: 'multiple',
+        answer_type: 'multiple',
         difficulty: 'easy',
-        question: 'Which candy is NOT made by Mars?',
-        correct_answer: 'Almond Joy',
-        incorrect_answers: ["M&M's", 'Twix', 'Snickers'],
+        question: '2 + 2?',
+        correct_answer: '4',
+        incorrect_answers: ['2', '3', '5'],
       },
     ],
   };
