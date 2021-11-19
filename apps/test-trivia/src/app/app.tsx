@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Health } from '@finnoconsult-test-trivia/api-interfaces';
 import Styled from '@emotion/styled';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const WelcomeStyles = Styled.div`
   display: flex;
@@ -80,6 +81,7 @@ const Instructions = () => (
 export const App = () => {
   return (
     <>
+      <CssBaseline />
       <Welcome />
       <HealthCheck />
       <Instructions />
