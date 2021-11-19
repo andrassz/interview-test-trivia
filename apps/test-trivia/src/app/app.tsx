@@ -5,6 +5,7 @@ import { HealthCheck } from './components/guidance/HealthCheck';
 import { Header } from './components/layout/Header';
 import { NavBar } from './components/layout/NavBar';
 import { Instructions } from './components/guidance/Instructions';
+import Game from './components/game/game';
 
 export const App = () => {
   const [tabIndex, setTab] = React.useState(0);
@@ -19,7 +20,7 @@ export const App = () => {
       <Header />
       <NavBar value={tabIndex} handleChange={handleChange} />
       <TabPanel value={tabIndex} index={0}>
-        FELAT
+        <Game />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         <HealthCheck />
