@@ -1,6 +1,10 @@
 import { assign, createMachine } from 'xstate';
-import { Question, Answer } from '@finnoconsult-test-trivia/api-interfaces';
-// import { getQuestions } from '@finnoconsult-test-trivia/questions';
+import {
+  Question,
+  Answer,
+  UserData,
+} from '@finnoconsult-test-trivia/api-interfaces';
+import { getQuestions } from '@finnoconsult-test-trivia/questions';
 
 export type MachineEvent =
   | { type: 'LOGIN' }
@@ -9,11 +13,15 @@ export type MachineEvent =
   | { type: 'RESTART' };
 
 export interface MachineContext {
-  questions: Question[];
-  answers: Answer[];
+  questions?: Question[];
+  answers?: Answer[];
+  user?: UserData;
 }
 
-const loadQuestions = async () => null;
+const loadQuestions = async () => {
+  console.log('getQuestions', getQuestions);
+  return getQuestions();
+};
 
 export const gameState = createMachine<MachineContext, MachineEvent>(
   {
@@ -24,6 +32,7 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
         on: {
           LOGIN: {
             target: 'loading',
+            actions: 'setUser',
           },
         },
       },
@@ -76,12 +85,20 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
       handleError: (error: any) => console.error(error),
       storeQuestions: assign(
         (_context: MachineContext, { type: _type, ...event }: any) => {
-          console.log('storeQuestions', _type, event);
-          return event;
+          // console.log('storeQuestions', _type, event);
+          return { questions: event?.data?.results };
+        }
+      ),
+      setUser: assign(
+        (_context: MachineContext, { type: _type, ...user }: any) => {
+          // console.log('setUser', _type, user);
+          return { user };
         }
       ),
       assignData: assign(
-        (_context: MachineContext, { type: _type, ...event }: any) => event
+        (_context: MachineContext, { type: _type, ...event }: any) => {
+          return event;
+        }
       ),
     },
     guards: {

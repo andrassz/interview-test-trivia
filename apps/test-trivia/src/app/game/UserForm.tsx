@@ -16,7 +16,7 @@ export function UserForm() {
   const [username, setUsername] = React.useState('');
   const send = useSend();
 
-  const enterGame = () => send('LOGIN');
+  const enterGame = () => send('LOGIN', { username });
 
   return (
     <StyledUserForm>
