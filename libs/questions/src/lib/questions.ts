@@ -5,6 +5,8 @@ interface APIResponse {
   results: Question[];
 }
 
+// TODO: this is what you need to replace with a call to the backend
+
 export function getQuestions(): APIResponse {
   return {
     response_code: 0,
