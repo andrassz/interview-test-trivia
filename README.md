@@ -21,7 +21,7 @@ This is the welcome page of your `HomeWork`, which is a blanket project, generat
 
 We would like you to demonstrate your development skills and shine while creating a `Multiple choice Trivia Game` application.
 
-You can use the following trivia questions as your question seed: https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986
+You can fetch the questions from this endpoint, and proxy them to the frontend: https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986
 
 > 💡 You can also generate new topics using the Trivia API: https://opentdb.com/api_config.php.
 Please select your type to be `Multiple Choice`
@@ -30,13 +30,13 @@ Please select your type to be `Multiple Choice`
 
  You can make your forked repo public. Anyway you'll benefit from having a new pet-project under your own github profile.
 
- We expect you to send a `pull request`, merging back your forked repository to our original repository after completing your tasks defined below.
+ We expect you to send a `pull request`, merging back your forked repository to our original repository after completing your tasks defined below. Your request won't actually be merged, we jsut need to see your code changes for the evaluation.
 
 ## Install
 
 After forking / cloning your repo, you need to install node packages, either with `yarn` or `npm install`.
 
-## Do the chore
+## Perform the tasks
 ### Backend tasks
 
 The backend application is to be implemented in the `apps/api`, as an `express` application.
