@@ -1,4 +1,5 @@
 import { Question } from '@finnoconsult-test-trivia/api-interfaces';
+import axios from 'axios';
 
 interface APIResponse {
   response_code: number;
@@ -7,10 +8,17 @@ interface APIResponse {
 
 // TODO: this is what you need to replace with a call to the backend
 
-export function getQuestions(): APIResponse {
+export function getQuestions(): Promise<APIResponse> {
   console.warn('TODO: implement getQuestions!');
-
-  return {
+  return new Promise<APIResponse>((resolve, reject) => {
+    axios
+      .get('/api/questions')
+      .then((response) => {
+        resolve(response.data as APIResponse);
+      })
+      .catch((err) => reject(err));
+  });
+  /*return {
     response_code: 0,
     results: [
       {
@@ -30,5 +38,5 @@ export function getQuestions(): APIResponse {
         incorrect_answers: ['2', '3', '5'],
       },
     ],
-  };
+  };*/
 }

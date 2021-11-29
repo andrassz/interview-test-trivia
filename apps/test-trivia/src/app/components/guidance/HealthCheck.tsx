@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Health } from '@finnoconsult-test-trivia/api-interfaces';
+import axios from 'axios';
+import { environment } from '../../../environments/environment';
 
 export const HealthCheck = () => {
   const [health, setHealth] = useState<Health>({
@@ -9,10 +11,9 @@ export const HealthCheck = () => {
   });
 
   useEffect(() => {
-    // 💡 NOTE: window.fetch is deprecated, it's expected to be replaced by a proper networking solution
-    fetch('/api/health')
-      .then((r) => r.json())
-      .then(setHealth);
+    axios.get('/api/health').then((response) => {
+      setHealth(response.data);
+    });
   }, []);
 
   return (

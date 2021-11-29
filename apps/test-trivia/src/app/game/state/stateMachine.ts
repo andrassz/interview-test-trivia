@@ -2,10 +2,11 @@ import { assign, createMachine } from 'xstate';
 import {
   Question,
   Answer,
-  UserData,
   createAnswer,
+  UserRecord,
 } from '@finnoconsult-test-trivia/api-interfaces';
 import { getQuestions } from '@finnoconsult-test-trivia/questions';
+import axios, { AxiosRequestConfig } from 'axios';
 
 interface AnswerEventData extends Question {
   answer: string;
@@ -22,19 +23,47 @@ function isAnswerEvent(event: MachineEvent): event is AnswerEvent {
 export interface MachineContext {
   questions?: Question[];
   answers?: Answer[];
-  user?: UserData;
+  user?: UserRecord;
 }
 
-const sendUserToBackend = async () => {
+const sendUserToBackend = async (username: string): Promise<string> => {
   console.warn('TODO: implement sendUserToBackend!');
+  console.log(`This is username: ${JSON.stringify(username)}`);
+  return new Promise<string>((resolve, reject) => {
+    axios
+      .post('/api/user', {
+        username: username,
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+const setAuthentication = (token: string) => {
+  axios.interceptors.request.use((config: AxiosRequestConfig<any>) => {
+    if (token) {
+      console.log('Adding token to headers...');
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+    return config;
+  });
 };
 
 const loadQuestions = async () => {
   return await getQuestions();
 };
 
-const sendResultToBackend = async () => {
-  console.warn('TODO: implement sendResultToBackend!');
+const sendResultToBackend = async (quizResult: number) => {
+  console.warn('TODO: imple1ment sendResultToBackend!');
+  axios.put('api/result', {
+    quizResult: quizResult,
+  });
 };
 
 export const gameState = createMachine<MachineContext, MachineEvent>(
@@ -46,18 +75,30 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
         on: {
           LOGIN: {
             target: 'loading',
-            actions: ['setUser', 'sendUserToBackend'],
           },
         },
       },
-
       loading: {
+        invoke: {
+          id: 'sendUserToBackend',
+          src: (_context: any, event: any) => sendUserToBackend(event.username),
+          onDone: {
+            target: 'loadQuestionsState',
+            actions: 'setUser',
+          },
+          onError: {
+            target: 'idle',
+            actions: 'handleError',
+          },
+        },
+      },
+      loadQuestionsState: {
         // onEntry: 'cleanUp',
         invoke: {
           src: loadQuestions,
           onDone: {
             target: 'question',
-            actions: 'storeQuestions',
+            actions: 'storeQuestions', //túl hamar/async történik? sokszor üres a questions mikor betölt a react componens...
           },
           onError: {
             target: 'error',
@@ -68,7 +109,7 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
       error: {
         on: {
           RETRY: {
-            target: 'loading',
+            target: 'loadQuestionsState',
           },
         },
       },
@@ -88,11 +129,11 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
       },
       final: {
         // due that cond hasMoreQuestion is executed first, we need to store last answer here
-        onEntry: ['setAnswer', 'sendResultToBackend'],
+        onEntry: ['setAnswer', 'sendResult'],
         on: {
           RETRY: {
             actions: 'cleanUp',
-            target: 'loading',
+            target: 'loadQuestionsState',
           },
         },
       },
@@ -102,16 +143,18 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
     actions: {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       handleError: (error: any) => console.error(error),
+
       storeQuestions: assign(
         (_context: MachineContext, { type: _type, ...event }: any) => {
-          // console.log('storeQuestions', _type, event);
+          console.log('storeQuestions', _type, event);
           return { questions: event?.data?.results };
         }
       ),
       setUser: assign(
-        (_context: MachineContext, { type: _type, ...user }: any) => {
-          // console.log('setUser', _type, user);
-          return { user };
+        (_context: MachineContext, { type: _type, ...event }: any) => {
+          console.log('setUser', _type, event);
+          setAuthentication(event.data.id);
+          return { user: event.data };
         }
       ),
       setAnswer: assign(
@@ -129,8 +172,16 @@ export const gameState = createMachine<MachineContext, MachineEvent>(
           return { questions: undefined, answers: undefined };
         }
       ),
-      sendUserToBackend,
-      sendResultToBackend,
+      sendResult: (context: MachineContext) => {
+        if (context.answers) {
+          // eslint-disable-next-line prettier/prettier
+          const good = context.answers.filter((answer) => answer.correct).length;
+          const all = context.answers.length;
+          sendResultToBackend(good / all);
+        } else {
+          console.warn('No answers were found in context');
+        }
+      },
     },
     guards: {
       hasMoreQuestion: (context: MachineContext, event: any) => {

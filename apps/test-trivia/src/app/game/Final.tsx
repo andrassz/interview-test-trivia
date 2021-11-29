@@ -22,7 +22,6 @@ const useGoodAnswerRate = (): [string | undefined, number] => {
 export function Final(props: FinalProps) {
   const [username, result] = useGoodAnswerRate();
   const send = useSend();
-
   if (result > 0.8) {
     return (
       <StyledFinal>

@@ -12,6 +12,7 @@ export interface UserData {
 export interface UserRecord extends UserData {
   id?: string;
 }
+
 export interface Question {
   category: string;
   answer_type: string;
